@@ -65,16 +65,17 @@ something			write_hex();
 something			write_int();
 something	                write_fp();
 something	                write_id();
-left curly			write_begin();
-something			write_end();
-left_paren			write_open();
-something			write_close();
+"{"				write_begin();
+"}"				write_end();
+"("				write_open();
+")"				write_close();
 "["				write_bopen();
 "]"				write_bclose();
 ";"				write_sep();
-"+"				|
-"+="				|
+"+"				write_
+"+="				write_
 many more such lines            |
+"="				write_op();
 "::"				write_op();
 inline comment			write_inline();
 /* */ style comment     	write_comment();
