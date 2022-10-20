@@ -3,10 +3,8 @@
 #include <string.h>
 #include "p2.h"
 
-int
-main() {
+int main() {
     int tk;
-
     myInit();
     while(tk = yylex()) {
 	printf("got this: %s\n", yytext);
