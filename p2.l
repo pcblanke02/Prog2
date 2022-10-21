@@ -1,5 +1,4 @@
 %{
-# TO BE NAMED p2.l
 
 #include <stdio.h>
 #include "p2.h"
@@ -60,7 +59,7 @@ number	NUM
 {quote}([^']|\\')*{quote}		write_char();
 {ditto}([^"]|\\\")*{ditto}		write_string();
 0{oct}+					write_oct();
-0({x}|{X}){hex}+			write_hex();
+0(\x|\X){hex}+				write_hex();
 {digit}+				write_int();
 {digit}*[\.]{digit}*({exp}|{ws})	write_fp();
 {digit}({alpha}|{digit})*		write_id();
@@ -137,10 +136,10 @@ void write_html_char(int c) {
 	    printf("&gt;");
 	    break;
 	case '"':
-	    something;
+	    printf("&qout;");
 	    break;
 	case '&':
-	    something;
+	    printf("&amp");
 	    break;
 	case '\n':
 	    if (inComment) {
