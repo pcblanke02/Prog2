@@ -58,7 +58,7 @@ number	NUM
 
 {ws}					{ /* no action and no return */ }
 {quote}([^']|\\')*{quote}		write_char();
-{ditto}([^"]|\\")*{ditto}		write_string();
+{ditto}([^"]|\\\")*{ditto}		write_string();
 0{oct}+					write_oct();
 0{x|X}{hex}+				write_hex();
 {digit}+				write_int();
