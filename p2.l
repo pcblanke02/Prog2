@@ -58,7 +58,7 @@ number
 
 {ws}					{ /* no action and no return */ }
 {quote}([^']|\\')*{quote}		write_char();
-{ditto}([^"]|\\\")*{ditto}		write_string();
+{ditto}([^"]|\\")*{ditto}		write_string();
 0{oct}+					write_oct();
 0{x|X}{hex}+				write_hex();
 {digit}+				write_int();
@@ -109,7 +109,7 @@ number
 ":"					|
 "::"					write_op();
 \/\/[^\n*]				write_inline();
-{start_com}(*.*){end_com}     		write_comment();
+\/\*(^*/)\*\/    			write_comment();
 #[^\n*]					write_directive();
 .					printf("unrecognized input at line %d", yylineno);
 
@@ -169,7 +169,6 @@ void write_char() {
 }
 
 void write_string() {
-    string *s = yytext;
     
 }
 
