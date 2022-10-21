@@ -71,46 +71,46 @@ number
 "["					write_bopen();
 "]"					write_bclose();
 ";"					write_sep();
-"+"					write_
-"-"					write_
-"*"					write_
-"/"					write_
-"%"					write_
-"<"					write_
-">"					write_
-"^"					write_
-"|"					write_
-","					write_
-"&"					write_
-"!"					write_
-"~"					write_
-"->"					write_
-"="					write_op();
-"++"					write_
-"--"					write_
-"<<"					write_
-">>"					write_
-"||"					write_
-"&&"					write_
-"=="					write_
-"+="					write_
-"-="					write_
-"*="					write_
-"/="					write_
-"%="					write_
-"<="					write_
-"<<="					write_
-">="					write_
-">>="					write_
-"^="					write_
-"|="					write_
-"&="					write_
-"!="					write_
-":"					write_
+"+"					|
+"-"					|
+"*"					|
+"/"					|
+"%"					|
+"<"					|
+">"					|
+"^"					|
+"|"					|
+","					|
+"&"					|
+"!"					|
+"~"					|
+"->"					|
+"="					|
+"++"					|
+"--"					|
+"<<"					|
+">>"					|
+"||"					|
+"&&"					|
+"=="					|
+"+="					|
+"-="					|
+"*="					|
+"/="					|
+"%="					|
+"<="					|
+"<<="					|
+">="					|
+">>="					|
+"^="					|
+"|="					|
+"&="					|
+"!="					|
+":"					|
 "::"					write_op();
-inline comment				write_inline();
-/* */ style comment     		write_comment();
-#define type command    		write_directive();
+\/\/[^\n*]				write_inline();
+{start_com}(*.*){end_com}     		write_comment();
+#[^\n*]					write_directive();
 .					printf("unrecognized input at line %d", yylineno);
 
 %%
@@ -154,7 +154,6 @@ void write_html_char(int c) {
 
 void write_html() {
     char *s = yytext;
-
     while (*s) {
 	write_html_char(*s++);
     }
@@ -170,23 +169,24 @@ void write_char() {
 }
 
 void write_string() {
-    something;
+    string *s = yytext;
+    
 }
 
 void write_oct() {
-    something;
+    
 }
 
 void write_hex() {
-    something;
+    
 }
 
 void write_int() {
-    something;
+    
 }
 
 void write_fp() {
-    something;
+    
 }
 
 void write_id() {
@@ -230,7 +230,10 @@ write_begin() {
 
 void
 write_end() {
-    something;
+    column -= INDENT;
+    write_indent();
+    write_html();
+    write_indent();
 }
 
 void
@@ -241,7 +244,8 @@ write_open() {
 
 void
 write_close() {
-    something;
+    write_html();
+    paren--;
 }
 
 void
@@ -252,7 +256,8 @@ write_bopen() {
 
 void
 write_bclose() {
-    something;
+    write_html();
+    paren--;
 }
 
 void
@@ -282,7 +287,10 @@ write_op() {
 
 void
 write_inline() {
-    something;
+    printf("<font color='green'>");
+    write_html();
+    printf("\n");
+    printf("</font>");
 }
 
 void
@@ -300,5 +308,7 @@ write_comment() {
 
 void
 write_directive() {
-    something;
+    printf("<b><font color='magenta'>");
+    write_html();
+    printf("</font></b>");
 }
