@@ -60,7 +60,7 @@ number	NUM
 {quote}([^']|\\')*{quote}		write_char();
 {ditto}([^"]|\\\")*{ditto}		write_string();
 0{oct}+					write_oct();
-0{x|X}{hex}+				write_hex();
+0({x}|{X}){hex}+			write_hex();
 {digit}+				write_int();
 {digit}*[\.]{digit}*({exp}|{ws})	write_fp();
 {digit}({alpha}|{digit})*		write_id();
@@ -109,7 +109,7 @@ number	NUM
 ":"					|
 "::"					write_op();
 \/\/[^\n*]				write_inline();
-\/\*(^*/)\*\/    			write_comment();
+\/\*[^*/]\*\/    			write_comment();
 #[^\n*]					write_directive();
 .					printf("unrecognized input at line %d", yylineno);
 
