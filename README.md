@@ -9,4 +9,4 @@ Type the following commands into the terminal while in program directory:
   
   gcc lex.yy.c error.c init.c symbol.c -o pprint
   
- ./pprint < p2test.c > output.html
+ ./pprint < p2test-fixit.c > output.html
