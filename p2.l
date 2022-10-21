@@ -56,31 +56,62 @@ number
 
 %%
 
-
-{ws}				{ /* no action and no return */ }
-{quote}([^']|\\')*{quote}	write_char();
-{ditto}([^"]|\\\")*{ditto}	write_string();
-something			write_oct();
-something			write_hex();
-something			write_int();
-something	                write_fp();
-something	                write_id();
-"{"				write_begin();
-"}"				write_end();
-"("				write_open();
-")"				write_close();
-"["				write_bopen();
-"]"				write_bclose();
-";"				write_sep();
-"+"				write_
-"+="				write_
-many more such lines            |
-"="				write_op();
-"::"				write_op();
-inline comment			write_inline();
-/* */ style comment     	write_comment();
-#define type command    	write_directive();
-.				printf("unrecognized input at line %d", yylineno);
+{ws}					{ /* no action and no return */ }
+{quote}([^']|\\')*{quote}		write_char();
+{ditto}([^"]|\\\")*{ditto}		write_string();
+0{oct}+					write_oct();
+0{x|X}{hex}+				write_hex();
+{digit}+				write_int();
+{digit}*[\.]{digit}*({exp}|{ws})	write_fp();
+{digit}({alpha}|{digit})*		write_id();
+"{"					write_begin();
+"}"					write_end();
+"("					write_open();
+")"					write_close();
+"["					write_bopen();
+"]"					write_bclose();
+";"					write_sep();
+"+"					write_
+"-"					write_
+"*"					write_
+"/"					write_
+"%"					write_
+"<"					write_
+">"					write_
+"^"					write_
+"|"					write_
+","					write_
+"&"					write_
+"!"					write_
+"~"					write_
+"->"					write_
+"="					write_op();
+"++"					write_
+"--"					write_
+"<<"					write_
+">>"					write_
+"||"					write_
+"&&"					write_
+"=="					write_
+"+="					write_
+"-="					write_
+"*="					write_
+"/="					write_
+"%="					write_
+"<="					write_
+"<<="					write_
+">="					write_
+">>="					write_
+"^="					write_
+"|="					write_
+"&="					write_
+"!="					write_
+":"					write_
+"::"					write_op();
+inline comment				write_inline();
+/* */ style comment     		write_comment();
+#define type command    		write_directive();
+.					printf("unrecognized input at line %d", yylineno);
 
 %%
 
